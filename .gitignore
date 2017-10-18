@@ -1,2 +1,6 @@
 terraform-provider-manifold
 vendor/
+
+# Terraform rules, we sometimes do things in this repo to test
+terraform.tfstate*
+.terraform
