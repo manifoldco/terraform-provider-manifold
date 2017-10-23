@@ -1,52 +1,53 @@
 provider "manifold" {
-    // uses the default and loads the API key from the ENV `MANIFOLD_API_KEY`.
+  // uses the default and loads the API key from the ENV `MANIFOLD_API_KEY`.
 }
 
-provider "aws" {
-    // this uses the default aws configuration
+// This example loads a resource and filters out specific credentials. This way
+// you can select only the ones you need, or set up an alias.
+// First. we'll just select the `TOKEN_ID` credential, as is.
+// In the second credential block, we'll use the `secret` alias, which we can
+// use later on to reference our credential.
+// In the third example, we'll try and get a non existing key and give it a
+// default value, which will be used to populate the credentials map.
+data "manifold_resource" "example1" {
+  project  = "manifold-terraform"
+  resource = "custom-resource1"
+
+  credential {
+    key = "TOKEN_ID"
+  }
+
+  credential {
+    name = "secret"
+    key  = "TOKEN_SECRET"
+  }
+
+  credential {
+    name    = "default-example"
+    key     = "DEFAULT_EXAMPLE"
+    default = "default-value"
+  }
 }
 
-data "manifold_resource" "my-service" {
-    project = "my-unique-project"
-    resource = "my-unique-resource"
-
-    // Specify specific credentials to load for this resource.
-    credential {
-        name    = "username" // the reference key for later on
-        key     = "USERNAME" // the key/value key from the values field
-        default = "manifold" // optional, default value
-    }
-
-    credential {
-        name    = "password" // the reference key for later on
-        key     = "PASSWORD" // the key/value key from the values field
-    }
+output "TOKEN_ID" {
+  value = "${data.manifold_resource.example1.credentials.TOKEN_ID}"
 }
 
-resource "aws_ec2" "my-service" {
-    // ec2 setup
-
-    env_vars = {
-        "SERVICE_USERNAME=${data.manifold_resource.my-resource.credentials.username}",
-        "SERVICE_PASSWORD=${data.manifold_resource.my-resource.credentials.password}",
-        // ...
-    }
+output "TOKEN_SECRET" {
+  value = "${data.manifold_resource.example1.credentials.secret}"
 }
 
-data "manifold_resource" "my-second-service" {
-    project = "my-unique-project"
-    resource = "my-unique-second-resource"
-
-    // Don't specify credentials to load, load all of them and use their key as
-    // reference name.
+output "DEFAULT" {
+  value = "${data.manifold_resource.example1.credentials.default-example}"
 }
 
-resource "aws_ec2" "my-service" {
-    // ec2 setup
+// In this example we'll select all the credentials for our resource without
+// filtering any out.
+data "manifold_resource" "example2" {
+  project  = "manifold-terraform"
+  resource = "custom-resource1"
+}
 
-    env_vars = {
-        "SERVICE_USERNAME=${data.manifold_resource.my-resource.credentials.USERNAME}",
-        "SERVICE_PASSWORD=${data.manifold_resource.my-resource.credentials.PASSWORD}",
-        // ...
-    }
+output "TOKEN_SECRET_2" {
+  value = "${data.manifold_resource.example2.credentials.TOKEN_SECRET}"
 }

@@ -6,7 +6,6 @@ Terraform Provider.
 ## Used resources
 
 - `manifold.data.manifold_resource`
-- `aws.resource.aws_ec2`
 
 ## Prerequisites
 
@@ -18,9 +17,15 @@ environment variable, `MANIFOLD_API_KEY`.
 
 ## Loading credentials
 
-There are 2 examples given. The first example loads specific credentials for
-your resource, giving you control of what will become available. You can name
-these credentials as you like and use this name later on as a reference.
+There are 2 examples given to illustrate the posibilities of configuring the
+data source.
+
+The first example loads specific credentials for your resource, giving you
+control of what will become available. You can name these credentials as you
+like and use this name later on as a reference. Within this example, we've
+illustrated several ways of defining the credentials. The minimal requirement
+is providing a `key`, which will be used to filter out only that key from your
+resource credentials.
 
 The second example does not provide a credential filter, meaning we'll load all
 available credentials and use the stored KEY as a reference name which you can
