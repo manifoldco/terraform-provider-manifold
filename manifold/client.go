@@ -57,9 +57,9 @@ func (cl *clientWrapper) getProject(ctx context.Context, label string) (*manifol
 	return nil, errProjectNotFound
 }
 
-func (cl *clientWrapper) getResource(ctx context.Context, projectID manifold.ID, label string) (*manifold.Resource, error) {
+func (cl *clientWrapper) getResource(ctx context.Context, projectID *manifold.ID, label string) (*manifold.Resource, error) {
 	resources := cl.client.Resources.List(ctx, &manifold.ResourcesListOpts{
-		ProjectID: &projectID,
+		ProjectID: projectID,
 		Label:     ptrString(label),
 		TeamID:    cl.teamID,
 	})

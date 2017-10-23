@@ -12,14 +12,16 @@ func dataSourceManifoldResource() *schema.Resource {
 		Read: dataSourceManifoldResourceRead,
 
 		Schema: map[string]*schema.Schema{
-			"project": {
-				Type:     schema.TypeString,
-				Required: true,
+			"resource": {
+				Type:        schema.TypeString,
+				Required:    true,
+				Description: "The resource label you want to get the resource for",
 			},
 
-			"resource": {
-				Type:     schema.TypeString,
-				Required: true,
+			"project": {
+				Type:        schema.TypeString,
+				Optional:    true,
+				Description: "The project label you want to get the resource for.",
 			},
 
 			"credential": {
@@ -49,8 +51,9 @@ func dataSourceManifoldResource() *schema.Resource {
 			},
 
 			"credentials": {
-				Type:     schema.TypeMap,
-				Computed: true,
+				Type:      schema.TypeMap,
+				Computed:  true,
+				Sensitive: true,
 			},
 		},
 	}
@@ -61,13 +64,20 @@ func dataSourceManifoldResourceRead(d *schema.ResourceData, meta interface{}) er
 	ctx := context.Background()
 
 	projectLabel := d.Get("project").(string)
-	project, err := cl.getProject(ctx, projectLabel)
-	if err != nil {
-		return err
+	var projectID *manifold.ID
+	var project *manifold.Project
+	var err error
+	if projectLabel != "" {
+		project, err = cl.getProject(ctx, projectLabel)
+		if err != nil {
+			return err
+		}
+
+		projectID = &project.ID
 	}
 
 	resourceLabel := d.Get("resource").(string)
-	resource, err := cl.getResource(ctx, project.ID, resourceLabel)
+	resource, err := cl.getResource(ctx, projectID, resourceLabel)
 	if err != nil {
 		return err
 	}
@@ -101,7 +111,9 @@ func dataSourceManifoldResourceRead(d *schema.ResourceData, meta interface{}) er
 	}
 
 	d.SetId(resource.ID.String())
-	d.Set("project", project.Body.Label)
+	if project != nil {
+		d.Set("project", project.Body.Label)
+	}
 	d.Set("resource", resource.Body.Label)
 	d.Set("credentials", credMap)
 	return nil
