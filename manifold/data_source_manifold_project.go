@@ -62,6 +62,7 @@ func dataSourceManifoldProject() *schema.Resource {
 			"credentials": {
 				Type:        schema.TypeMap,
 				Computed:    true,
+				Sensitive:   true,
 				Description: "The credentials linked to this project.",
 			},
 		},
@@ -128,7 +129,7 @@ func dataSourceManifoldProjectRead(d *schema.ResourceData, meta interface{}) err
 }
 
 // mapResourceCredentials will go over all the given credentials and map them
-// in a credential map linked to the resoruce ID.
+// in a credential map linked to the resource ID.
 // The structure will look as follows:
 //
 // map[
