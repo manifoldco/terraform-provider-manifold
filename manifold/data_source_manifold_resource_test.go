@@ -2,7 +2,7 @@ package manifold
 
 import (
 	"fmt"
-	"regexp"
+	"strconv"
 	"testing"
 
 	"github.com/hashicorp/terraform/helper/resource"
@@ -143,25 +143,15 @@ func testAccCheckManifoldCredentialsLength(n string, length int) resource.TestCh
 			return fmt.Errorf("Resource not found")
 		}
 
-		var matchCount int
-		for k := range rn.Primary.Attributes {
-			matched, err := regexp.MatchString("credentials\\..*", k)
-			if err != nil {
-				return err
-			}
-
-			if matched {
-				matchCount++
-			}
+		out, ok := rn.Primary.Attributes["credentials.%"]
+		if !ok {
+			return fmt.Errorf("Attribute 'credentials' not found: %#v", rn.Primary.Attributes)
 		}
 
-		// matchCount will also match `credentials.%`, which we don't want
-		matchCount--
-
-		if matchCount != length {
-			return fmt.Errorf("Attributes has '%d' items, expected '%d'", matchCount, length)
+		o, _ := strconv.Atoi(out)
+		if o != length {
+			return fmt.Errorf("Attribute 'credentials' should be of length '%d', got '%s'", length, out)
 		}
-
 		return nil
 	}
 }

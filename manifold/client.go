@@ -79,6 +79,26 @@ func (cl *clientWrapper) getResource(ctx context.Context, projectID *manifold.ID
 	return nil, errResourceNotFound
 }
 
+func (cl *clientWrapper) getProjectResources(ctx context.Context, projectID *manifold.ID) ([]*manifold.Resource, error) {
+	resourceList := cl.client.Resources.List(ctx, &manifold.ResourcesListOpts{
+		ProjectID: projectID,
+		TeamID:    cl.teamID,
+	})
+	defer resourceList.Close()
+
+	resources := []*manifold.Resource{}
+	for resourceList.Next() {
+		resource, err := resourceList.Current()
+		if err != nil {
+			return nil, err
+		}
+
+		resources = append(resources, resource)
+	}
+
+	return resources, nil
+}
+
 func (cl *clientWrapper) getCredentials(ctx context.Context, resourceIDs []manifold.ID) ([]*manifold.Credential, error) {
 	credList := cl.client.Credentials.List(ctx, resourceIDs)
 	defer credList.Close()

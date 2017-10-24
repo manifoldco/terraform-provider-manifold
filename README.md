@@ -21,3 +21,25 @@ To retrieve an API token, use [our CLI tool](http://github.com/manifoldco/manifo
 ```
 $ manifold tokens create
 ```
+
+## Examples
+
+We've included a set of examples to get you started and to understand what you
+can do with our provider.
+
+### Setup
+
+The Manifold setup for our examples is as follows:
+
+- *Project:* manifold-terraform
+    - *Resource:* custom-resource1
+        - *Credential*: TOKEN_ID
+        - *Credential*: TOKEN_SECRET
+    - *Resource:* custom-resource2
+        - *Credential*: USERNAME
+        - *Credential*: PASSWORD
+
+### Examples
+
+- [Load data for an entire project](_examples/manifold-project/README.md)
+- [Load data for a specific resource](_examples/manifold-resource/README.md)
