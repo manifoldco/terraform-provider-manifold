@@ -31,6 +31,19 @@ To retrieve an API token, use [our CLI tool](http://github.com/manifoldco/manifo
 $ manifold tokens create
 ```
 
+## Installation
+
+Terraform currently doesn't allow custom providers to be fetched automatically,
+so to use this plugin, you'll have to put the compiled binary in your terraform
+plugin folder. Make sure you have [go installed](https://golang.org/):
+
+```
+$ go get -d github.com/manifoldco/terraform-provider-manifold
+$ cd $GOPATH/github.com/manifoldco/terraform-provider-manifold
+$ make bootstrap
+$ make install
+```
+
 ## Examples
 
 We've included a set of examples to get you started and to understand what you
