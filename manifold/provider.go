@@ -24,10 +24,10 @@ func Provider() terraform.ResourceProvider {
 				DefaultFunc: schema.EnvDefaultFunc("MANIFOLD_TEAM", ""),
 				Description: "The team used to connect to the Manifold API",
 			},
-			"api_key": {
+			"api_token": {
 				Type:        schema.TypeString,
 				Optional:    true,
-				DefaultFunc: schema.EnvDefaultFunc("MANIFOLD_API_KEY", ""),
+				DefaultFunc: schema.EnvDefaultFunc("MANIFOLD_API_TOKEN", ""),
 				Description: "API Key to use to connect to the Manifold API",
 				Sensitive:   true,
 			},
@@ -45,10 +45,10 @@ func Provider() terraform.ResourceProvider {
 func providerConfigure(d *schema.ResourceData) (interface{}, error) {
 	cfgs := []manifold.ConfigFunc{}
 
-	if apiKey, ok := d.GetOk("api_key"); ok && apiKey.(string) != "" {
-		cfgs = append(cfgs, manifold.WithAPIKey(apiKey.(string)))
+	if apiToken, ok := d.GetOk("api_token"); ok && apiToken.(string) != "" {
+		cfgs = append(cfgs, manifold.WithAPIToken(apiToken.(string)))
 	} else {
-		return nil, errAPIKeyRequired
+		return nil, errAPITokenRequired
 	}
 
 	if urlPattern, ok := d.GetOk("url_pattern"); ok {

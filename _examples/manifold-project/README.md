@@ -14,4 +14,4 @@ This example assumes you have an account with [Manifold.co](https://www.manifold
 AWS.
 
 It will also assume that you have exported the Manifold API Key to the
-environment variable, `MANIFOLD_API_KEY`.
+environment variable, `MANIFOLD_API_TOKEN`.
