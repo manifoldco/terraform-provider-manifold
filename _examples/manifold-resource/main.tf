@@ -1,5 +1,5 @@
 provider "manifold" {
-  // uses the default and loads the API key from the ENV `MANIFOLD_API_KEY`.
+  // uses the default and loads the API key from the ENV `MANIFOLD_API_TOKEN`.
 }
 
 // This example loads a resource and filters out specific credentials. This way
