@@ -28,6 +28,10 @@ bootstrap: $(BOOTSTRAP)
 vendor: Gopkg.lock
 	dep ensure
 
+install: vendor
+	go install
+	cp $(GOPATH)/bin/terraform-provider-manifold $(HOME)/.terraform.d/plugins/terraform-provider-manifold
+
 .PHONY: bootstrap $(BOOTSTRAP)
 
 #################################################

@@ -1,5 +1,14 @@
 # Manifold Terraform Provider
 
+[Homepage](https://manifold.co) |
+[Twitter](https://twitter.com/manifoldco) |
+[Code of Conduct](./.github/CODE_OF_CONDUCT.md) |
+[Contribution Guidelines](./.github/CONTRIBUTING.md)
+
+[![Build Status](https://travis-ci.com/manifoldco/terraform-provider-manifold.svg?token=SbTMbCYMT5HWVmmTnBoj&branch=master)](https://travis-ci.com/manifoldco/terraform-provider-manifold)
+[![Go Report Card](https://goreportcard.com/badge/github.com/manifoldco/terraform-provider-manifold)](https://goreportcard.com/report/github.com/manifoldco/terraform-provider-manifold)
+[![License](https://img.shields.io/badge/license-BSD-blue.svg)](./LICENSE.md)
+
 This is a Terraform Provider to help you read the data of your provisioned
 resources on the [Manifold.co](https://manifold.co) platform.
 
@@ -20,6 +29,19 @@ To retrieve an API token, use [our CLI tool](http://github.com/manifoldco/manifo
 
 ```
 $ manifold tokens create
+```
+
+## Installation
+
+Terraform currently doesn't allow custom providers to be fetched automatically,
+so to use this plugin, you'll have to put the compiled binary in your terraform
+plugin folder. Make sure you have [go installed](https://golang.org/):
+
+```
+$ go get -d github.com/manifoldco/terraform-provider-manifold
+$ cd $GOPATH/github.com/manifoldco/terraform-provider-manifold
+$ make bootstrap
+$ make install
 ```
 
 ## Examples
