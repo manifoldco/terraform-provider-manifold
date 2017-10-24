@@ -195,8 +195,8 @@
 [[projects]]
   name = "github.com/manifoldco/go-manifold"
   packages = [".","errors","idtype"]
-  revision = "55bf3e307a487010ae1cbeb13406a7c92c66294c"
-  version = "v0.8.0"
+  revision = "5b30fa4d9c5ab565fe16b81185c2f1590e3aad1e"
+  version = "v0.8.3"
 
 [[projects]]
   name = "github.com/mattn/go-isatty"
@@ -315,6 +315,6 @@
 [solve-meta]
   analyzer-name = "dep"
   analyzer-version = 1
-  inputs-digest = "f3ebe22b47842e599ba8b99eda17368388f5256dfa8d8ad539d7148c8813d85e"
+  inputs-digest = "412b77d7a1a092efbcb52ca064d4e7bd49410174a4dc277e5c31443a5968d3b6"
   solver-name = "gps-cdcl"
   solver-version = 1
