@@ -37,16 +37,11 @@ $ manifold tokens create
 
 ## Installation
 
+Bare zip archives per release version are available on [https://releases.manifold.co](https://releases.manifold.co/terraform-provider-manifold/).
+
 Terraform currently doesn't allow custom providers to be fetched automatically,
 so to use this plugin, you'll have to put the compiled binary in your terraform
-plugin folder. Make sure you have [go installed](https://golang.org/):
-
-```
-$ go get -d github.com/manifoldco/terraform-provider-manifold
-$ cd $GOPATH/github.com/manifoldco/terraform-provider-manifold
-$ make bootstrap
-$ make install
-```
+plugin folder, which is located at `$HOME/.terraform.d/plugins/`.
 
 ## Examples
 
