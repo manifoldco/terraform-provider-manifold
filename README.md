@@ -9,6 +9,10 @@
 [![Go Report Card](https://goreportcard.com/badge/github.com/manifoldco/terraform-provider-manifold)](https://goreportcard.com/report/github.com/manifoldco/terraform-provider-manifold)
 [![License](https://img.shields.io/badge/license-BSD-blue.svg)](./LICENSE.md)
 
+![Terraform Manifold](./banner.png)
+
+Manifold gives you a single account to purchase and manage cloud services from multiple providers, giving you managed logging, email, MySQL, Postgres, Memcache, Redis, and more. Manifold also lets you register configurations for your services external to Manifold's marketplace, giving you a single location to organize and manage the credentials for your environments.
+
 This is a Terraform Provider to help you read the data of your provisioned
 resources on the [Manifold.co](https://manifold.co) platform.
 
