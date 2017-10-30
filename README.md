@@ -5,6 +5,7 @@
 [Code of Conduct](./.github/CODE_OF_CONDUCT.md) |
 [Contribution Guidelines](./.github/CONTRIBUTING.md)
 
+[![GitHub release](https://img.shields.io/github/tag/manifoldco/terraform-provider-manifold.svg?label=latest)](https://github.com/manifoldco/terraform-provider-manifold/releases)
 [![Build Status](https://travis-ci.org/manifoldco/terraform-provider-manifold.svg?branch=master)](https://travis-ci.org/manifoldco/terraform-provider-manifold)
 [![Go Report Card](https://goreportcard.com/badge/github.com/manifoldco/terraform-provider-manifold)](https://goreportcard.com/report/github.com/manifoldco/terraform-provider-manifold)
 [![License](https://img.shields.io/badge/license-BSD-blue.svg)](./LICENSE.md)
