@@ -4,7 +4,9 @@ import (
 	"context"
 
 	"github.com/hashicorp/terraform/helper/schema"
-	manifold "github.com/manifoldco/go-manifold"
+
+	"github.com/manifoldco/kubernetes-credentials/helpers/client"
+	"github.com/manifoldco/kubernetes-credentials/primitives"
 )
 
 func dataSourceManifoldResource() *schema.Resource {
@@ -60,90 +62,38 @@ func dataSourceManifoldResource() *schema.Resource {
 }
 
 func dataSourceManifoldResourceRead(d *schema.ResourceData, meta interface{}) error {
-	cl := meta.(*clientWrapper)
+	cl := meta.(*client.Client)
 	ctx := context.Background()
 
-	projectLabel := d.Get("project").(string)
-	var projectID *manifold.ID
-	var project *manifold.Project
-	var err error
-	if projectLabel != "" {
-		project, err = cl.getProject(ctx, projectLabel)
-		if err != nil {
-			return err
-		}
-
-		projectID = &project.ID
-	}
-
-	resourceLabel := d.Get("resource").(string)
-	resource, err := cl.getResource(ctx, projectID, resourceLabel)
+	projectLabel, _, err := getProjectInformation(cl, d.Get("project").(string), false)
 	if err != nil {
 		return err
 	}
 
-	credentials, err := cl.getCredentials(ctx, []manifold.ID{resource.ID})
+	rs := &primitives.ResourceSpec{
+		Name:        d.Get("resource").(string),
+		Credentials: credentialSpecsFromList(d.Get("credential").(*schema.Set).List()),
+	}
+	resource, err := cl.GetResource(ctx, projectLabel, rs)
 	if err != nil {
 		return err
 	}
 
-	credentialList := d.Get("credential").(*schema.Set).List()
-	credMap := map[string]string{}
-	availableCredentials := map[string]string{}
-	for _, cred := range credentials {
-		for k, v := range cred.Body.Values {
-			availableCredentials[k] = v
-		}
+	cv, err := cl.GetResourceCredentialValues(ctx, projectLabel, rs)
+	if err != nil {
+		return err
 	}
 
-	// No credential filter set up, load all credentials
-	if len(credentialList) == 0 {
-		credMap = availableCredentials
-	} else {
-		for _, raw := range credentialList {
-			k, v, err := parseCredential(raw, availableCredentials)
-			if err != nil {
-				return err
-			}
-
-			credMap[k] = v
-		}
+	credMap, err := client.FlattenResourceCredentialValues(cv)
+	if err != nil {
+		return err
 	}
 
 	d.SetId(resource.ID.String())
-	if project != nil {
-		d.Set("project", project.Body.Label)
-	}
 	d.Set("resource", resource.Body.Label)
 	d.Set("credentials", credMap)
+	if projectLabel != nil {
+		d.Set("project", *projectLabel)
+	}
 	return nil
-}
-
-func parseCredential(requestedCredential interface{}, creds map[string]string) (string, string, error) {
-	credData := requestedCredential.(map[string]interface{})
-	key := credData["key"].(string)
-
-	var name string
-	nameI, ok := credData["name"]
-	if !ok || nameI.(string) == "" {
-		name = key
-	} else {
-		name = nameI.(string)
-	}
-
-	for k, v := range creds {
-		if k == key {
-			return name, v, nil
-		}
-	}
-
-	if def, ok := credData["default"]; ok && def.(string) != "" {
-		return name, def.(string), nil
-	}
-
-	return "", "", errCredentialNotFound
-}
-
-func ptrString(s string) *string {
-	return &s
 }

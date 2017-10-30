@@ -3,7 +3,8 @@ provider "manifold" {
 }
 
 // This example shows how to get all credentials for a project in one go. The
-// setup contains 2 custom resources, `custom-resource1` and `custom-resource2`.
+// setup contains 2 custom resources, `custom-resource1-1` and
+// `custom-resource2-1`.
 // `custom_resource1` has 2 credentials, `TOKEN_ID` and `TOKEN_SECRET`.
 // `custom_resource2` has 2 credentials, `USERNAME` and `PASSWORD`.
 data "manifold_project" "no_resource_selected" {
@@ -34,7 +35,7 @@ data "manifold_project" "resource_selected" {
   project = "manifold-terraform"
 
   resource {
-    resource = "custom-resource2"
+    resource = "custom-resource2-1"
   }
 }
 
@@ -49,15 +50,15 @@ output "sr_password" {
 // This example shows how to filter for specific credentials across different
 // resources. The setup is the same as with selecting credentials through the
 // `manifold_resource` data source.
-// Here we'll fetch the `USERNAME` value from `custom-resource2` and alias it
+// Here we'll fetch the `USERNAME` value from `custom-resource2-1` and alias it
 // with `my-alias`. We also get a credential that hasn't been set,
 // `NON_EXISTING`and give it a default value `my-default-secret`. Lastly, we
-// just select the `TOKEN_ID` from `custom-resource1`.
+// just select the `TOKEN_ID` from `custom-resource1-1`.
 data "manifold_project" "credential_selected" {
   project = "manifold-terraform"
 
   resource {
-    resource = "custom-resource2"
+    resource = "custom-resource2-1"
 
     credential {
       name = "my_alias"
@@ -71,7 +72,7 @@ data "manifold_project" "credential_selected" {
   }
 
   resource {
-    resource = "custom-resource1"
+    resource = "custom-resource1-1"
 
     credential {
       key = "TOKEN_ID"
