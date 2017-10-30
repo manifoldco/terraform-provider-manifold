@@ -2,11 +2,19 @@ language: go
 go:
 - 1.9.x
 install: make bootstrap
+deploy:
+- provider: script
+  script: make release
+  skip_cleanup: true
+  on:
+    tags: true
+    repo: manifoldco/terraform-provider-manifold
 env:
   global:
   - MANIFOLD_TEAM=manifold-integration-ci
   - TF_ACC=true
-  # MANIFOLD_API_KEY
+  - AWS_REGION=us-east-1
+  # MANIFOLD_API_TOKEN
   - secure: TtOkVm709CaU+NPMB8nmi1T0Q4wcdzU8PHVyTKGbPgaPU4KnIO0mUTHRhulsqhI667BeZ7AUVilT9zhaotyS7Fa9RPJ6iEi5oZo/juP3eTk/3CF5Vd+K35eNzQE5jnONFvIPL3CHEaGpTfuXJ1Iq+i7mx+f992WVcPLbF3WyosWoDCBg+oLAXGzrKUz1UW40i8ERX2DGqxc4mdwcGYRa0UlfmfpP62bRAkt0mHfLHk2nqjFOnR3qwh5GmpSMcuHaJ8le7kpCjUNAjN/dYWNSmJ0ghmWXJ+iclq/+VqtOYiW1Bk+tsxv9ehS5QxKBz1GKm6m4z9o0eTXCYZlwYAhePf1E1xQ3CklvSdT+dArdRaVrImywLKOwgkxrF8TvHj/jEKKkUXWRnRR7MyfJ2M7PSSCIIoOddzUpL1Sf5Y3F1HGqYx6k5xTrWWvToXD1jvLf17RjdN0YyYldiYsxlsABoGLDXb0LdtUU2ICm3yhfyqrCq7FLmfNQ9JJMHqryr806/B2Xrrmr5R62G45AUkv22hIcK1KHJ1FvNWt33BdqpO0DM+weie7Y02OICJE6d1AzzBBF1bDJUdPyW5TTVbcnSA7XobVsjFbOqxFki8MQzqk/h4CSzfPuti4TKxkOILouTgEiMVX0Fw7i9+mMZ3T3VK6C+0k/F/RtwWZJ0ieMN8s=
   # AWS_ACCESS_KEY_ID
   - secure: D788IIYKZK0Azj6vqFwCnMbJW/lEUsP7K/P8Avq7B2kN1i07PaLIPeFcL8+/VlnNC3IEXeqWP6x1ONGkFre3rLN++YXhoFuvXOt+4GVOMOURDnm/sedmnSOnvWPT677TSmlWMyGXB97hhHI/rVgJ2A10dMGUZQKYnKrYtUsKlWl1dmbqhfMJ4F/VJawhBMalasdM6JF7TRojUO3U04wa0AXupcHqJO5DnSby7rFl6D95+At3QVpfI97L6jwY8z2ea5d+o/3nTltzjOCwFXQbfD8mIbRL/1hFX8uC1Mq6JkdJLUpPHGydO1bV9c/WPVGwd/9HQSjOJqpsVfkTqZogU9ifMvxNQMDu4YitTFXov1kFm7tZIxXhFpHsJPm7xxlRn2nDlDjkECLHG42XddVKVRMtfKFS715ufxYXMI+c0b9XmOXYCAsozgBLGjC2miQwg7foQoAmz7XIwg6lxYkOkAEnC3BtVK0fYI0Ezcbbk+geX5gIktr7TXD6VgCWo8eq9xQVqQXopPU03f6qAOfNZzexWJR/O55ST7xnHXg5mrnj3rFoW6QOjydkPtdey0UvgUNGCWJmCyqSoNemSxRx1eWMOLYA0SVnfEDY9l1ZcQ5KjnVvDsuLbpnawSTx2go4LakWP/owAiwpXmfZ+6oEnw5nFaCpK592HswMInDgXtQ=
