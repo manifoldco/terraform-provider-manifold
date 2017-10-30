@@ -10,7 +10,7 @@ func TestManifoldDataSource_Project(t *testing.T) {
 	t.Run("with a basic configuration", func(t *testing.T) {
 		conf := `
 data "manifold_project" "manifold-terraform" {
-	project = "manifold-terraform"
+	project = "terraform"
 }
 `
 
@@ -22,7 +22,7 @@ data "manifold_project" "manifold-terraform" {
 					Config: conf,
 					Check: resource.ComposeTestCheckFunc(
 						resource.TestCheckResourceAttrSet("data.manifold_project.manifold-terraform", "id"),
-						resource.TestCheckResourceAttr("data.manifold_project.manifold-terraform", "project", "manifold-terraform"),
+						resource.TestCheckResourceAttr("data.manifold_project.manifold-terraform", "project", "terraform"),
 						testAccCheckManifoldCredentialsLength("data.manifold_project.manifold-terraform", 4),
 					),
 				},
@@ -34,10 +34,10 @@ data "manifold_project" "manifold-terraform" {
 		t.Run("without credentials filtered", func(t *testing.T) {
 			conf := `
 data "manifold_project" "manifold-terraform" {
-	project = "manifold-terraform"
+	project = "terraform"
 
 	resource {
-		resource = "custom-resource1"
+		resource = "custom-resource1-1"
 	}
 }
 `
@@ -50,7 +50,7 @@ data "manifold_project" "manifold-terraform" {
 						Config: conf,
 						Check: resource.ComposeTestCheckFunc(
 							resource.TestCheckResourceAttrSet("data.manifold_project.manifold-terraform", "id"),
-							resource.TestCheckResourceAttr("data.manifold_project.manifold-terraform", "project", "manifold-terraform"),
+							resource.TestCheckResourceAttr("data.manifold_project.manifold-terraform", "project", "terraform"),
 							testAccCheckManifoldCredentialsLength("data.manifold_project.manifold-terraform", 2),
 						),
 					},
@@ -61,10 +61,10 @@ data "manifold_project" "manifold-terraform" {
 		t.Run("with credentials filtered", func(t *testing.T) {
 			conf := `
 data "manifold_project" "manifold-terraform" {
-	project = "manifold-terraform"
+	project = "terraform"
 
 	resource {
-		resource = "custom-resource1"
+		resource = "custom-resource1-1"
 
 		credential {
 			key = "TOKEN_ID"
@@ -81,7 +81,7 @@ data "manifold_project" "manifold-terraform" {
 						Config: conf,
 						Check: resource.ComposeTestCheckFunc(
 							resource.TestCheckResourceAttrSet("data.manifold_project.manifold-terraform", "id"),
-							resource.TestCheckResourceAttr("data.manifold_project.manifold-terraform", "project", "manifold-terraform"),
+							resource.TestCheckResourceAttr("data.manifold_project.manifold-terraform", "project", "terraform"),
 							testAccCheckManifoldCredentialsLength("data.manifold_project.manifold-terraform", 1),
 						),
 					},
