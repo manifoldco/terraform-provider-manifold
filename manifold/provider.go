@@ -1,6 +1,8 @@
 package manifold
 
 import (
+	"fmt"
+
 	"github.com/hashicorp/terraform/helper/schema"
 	"github.com/hashicorp/terraform/terraform"
 
@@ -55,6 +57,8 @@ func providerConfigure(d *schema.ResourceData) (interface{}, error) {
 	if urlPattern, ok := d.GetOk("url_pattern"); ok {
 		cfgs = append(cfgs, manifold.ForURLPattern(urlPattern.(string)))
 	}
+
+	cfgs = append(cfgs, manifold.WithUserAgent(fmt.Sprintf("terraform-%s", Version)))
 
 	cl := manifold.New(cfgs...)
 	wrapper, err := client.New(cl, func(s string) *string { return &s }(d.Get("team").(string)))
