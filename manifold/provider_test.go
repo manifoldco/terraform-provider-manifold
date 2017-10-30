@@ -9,7 +9,6 @@ import (
 
 var (
 	testProviders map[string]terraform.ResourceProvider
-	testProvider  clientWrapper
 )
 
 func init() {

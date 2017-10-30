@@ -11,7 +11,7 @@ provider "manifold" {
 // default value, which will be used to populate the credentials map.
 data "manifold_resource" "example1" {
   project  = "manifold-terraform"
-  resource = "custom-resource1"
+  resource = "custom-resource1-1"
 
   credential {
     key = "TOKEN_ID"
@@ -45,7 +45,7 @@ output "DEFAULT" {
 // filtering any out.
 data "manifold_resource" "example2" {
   project  = "manifold-terraform"
-  resource = "custom-resource1"
+  resource = "custom-resource1-1"
 }
 
 output "TOKEN_SECRET_2" {
