@@ -1,7 +1,7 @@
 VERSION?=$(shell git describe --tags --dirty | sed 's/^v//')
 PKG=github.com/manifoldco/terraform-provider-manifold
 GO_BUILD=CGO_ENABLED=0 go build -i --ldflags="-w -X $(PKG)/config.Version=$(VERSION)"
-PROMULGATE_VERSION=0.0.8
+PROMULGATE_VERSION=0.0.9
 
 LINTERS=\
     gofmt \
@@ -92,6 +92,6 @@ zips: $(NO_WINDOWS:%=build/terraform-provider-manifold_$(VERSION)_%.tar.gz) buil
 release: zips
 	curl -LO https://releases.manifold.co/promulgate/$(PROMULGATE_VERSION)/promulgate_$(PROMULGATE_VERSION)_linux_amd64.tar.gz
 	tar xvf promulgate_*
-	./promulgate release v$(VERSION)
+	./promulgate release --homebrew=false v$(VERSION)
 
 .PHONY: release zips $(OS_ARCH:%=os-build/%/bin/manifold)
