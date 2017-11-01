@@ -17,8 +17,6 @@ Manifold gives you a single account to purchase and manage cloud services from m
 This is a Terraform Provider to help you read the data of your provisioned
 resources on the [Manifold.co](https://manifold.co) platform.
 
-Currently, we only support data sources, not resources.
-
 ## Configuration
 
 To use the Manifold Provider, you'll need an API Key. You can either provide
@@ -65,3 +63,4 @@ The Manifold setup for our examples is as follows:
 
 - [Load data for an entire project](_examples/manifold-project/README.md)
 - [Load data for a specific resource](_examples/manifold-resource/README.md)
+- [Create a new API token](_examples/manifold-token/README.md)

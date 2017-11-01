@@ -7,7 +7,6 @@ import (
 	"github.com/hashicorp/terraform/terraform"
 
 	"github.com/manifoldco/go-manifold"
-	"github.com/manifoldco/kubernetes-credentials/helpers/client"
 )
 
 // Provider returns the configured Terraform ResourceProvider with the Manifold
@@ -36,6 +35,10 @@ func Provider() terraform.ResourceProvider {
 			},
 		},
 
+		ResourcesMap: map[string]*schema.Resource{
+			"manifold_api_token": resourceManifoldToken(),
+		},
+
 		DataSourcesMap: map[string]*schema.Resource{
 			"manifold_resource": dataSourceManifoldResource(),
 			"manifold_project":  dataSourceManifoldProject(),
@@ -60,8 +63,7 @@ func providerConfigure(d *schema.ResourceData) (interface{}, error) {
 
 	cfgs = append(cfgs, manifold.WithUserAgent(fmt.Sprintf("terraform-%s", Version)))
 
-	cl := manifold.New(cfgs...)
-	wrapper, err := client.New(cl, func(s string) *string { return &s }(d.Get("team").(string)))
+	wrapper, err := newWrapper(d.Get("team").(string), cfgs...)
 	if err != nil {
 		return nil, err
 	}

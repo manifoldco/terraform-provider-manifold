@@ -65,7 +65,7 @@ build: $(PREFIX)bin/terraform-provider-manifold$(SUFFIX)
 $(PREFIX)bin/terraform-provider-manifold$(SUFFIX):
 	$(GO_BUILD) -o $(PREFIX)bin/terraform-provider-manifold$(SUFFIX) .
 
-.PHONY: build
+.PHONY: build $(PREFIX)bin/terraform-provider-manifold$(SUFFIX)
 
 NO_WINDOWS= \
 	darwin_amd64 \
