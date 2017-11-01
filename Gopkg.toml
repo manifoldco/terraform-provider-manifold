@@ -4,4 +4,4 @@
 
 [[constraint]]
   name = "github.com/manifoldco/go-manifold"
-  version = "0.8.3"
+  version = "0.8.5"
