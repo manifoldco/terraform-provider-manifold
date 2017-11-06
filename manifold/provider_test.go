@@ -1,10 +1,12 @@
-package manifold
+package manifold_test
 
 import (
 	"os"
 	"testing"
 
 	"github.com/hashicorp/terraform/terraform"
+
+	"github.com/manifoldco/terraform-provider-manifold/manifold"
 )
 
 var (
@@ -13,7 +15,7 @@ var (
 
 func init() {
 	testProviders = map[string]terraform.ResourceProvider{
-		"manifold": Provider(),
+		"manifold": manifold.Provider(),
 	}
 }
 
