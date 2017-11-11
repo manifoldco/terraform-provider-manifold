@@ -1,4 +1,4 @@
-package manifold
+package manifold_test
 
 import (
 	"testing"
