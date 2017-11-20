@@ -5,7 +5,7 @@ import (
 
 	"github.com/hashicorp/terraform/helper/schema"
 
-	"github.com/manifoldco/kubernetes-credentials/helpers/client"
+	"github.com/manifoldco/go-manifold/integrations"
 )
 
 func dataSourceManifoldProject() *schema.Resource {
@@ -70,7 +70,7 @@ func dataSourceManifoldProject() *schema.Resource {
 }
 
 func dataSourceManifoldProjectRead(d *schema.ResourceData, meta interface{}) error {
-	cl := meta.(*client.Client)
+	cl := meta.(*integrations.Client)
 	ctx := context.Background()
 
 	projectLabel, projectID, err := getProjectInformation(cl, d.Get("project").(string), true)
@@ -79,14 +79,14 @@ func dataSourceManifoldProjectRead(d *schema.ResourceData, meta interface{}) err
 	}
 
 	resourceList := d.Get("resource").(*schema.Set).List()
-	filteredResources := resourceSpecsFromList(resourceList)
+	filteredResources := resourcesFromList(resourceList)
 
 	cv, err := cl.GetResourcesCredentialValues(ctx, projectLabel, filteredResources)
 	if err != nil {
 		return err
 	}
 
-	credMap, err := client.FlattenResourcesCredentialValues(cv)
+	credMap, err := integrations.FlattenResourcesCredentialValues(cv)
 	if err != nil {
 		return err
 	}
