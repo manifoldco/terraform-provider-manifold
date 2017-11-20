@@ -4,8 +4,9 @@ import (
 	"context"
 
 	"github.com/hashicorp/terraform/helper/schema"
+
 	manifold "github.com/manifoldco/go-manifold"
-	"github.com/manifoldco/kubernetes-credentials/helpers/client"
+	"github.com/manifoldco/go-manifold/integrations"
 )
 
 func resourceManifoldToken() *schema.Resource {
@@ -53,7 +54,7 @@ func resourceManifoldToken() *schema.Resource {
 }
 
 func resourceManifoldTokenCreate(d *schema.ResourceData, meta interface{}) error {
-	cl := meta.(*client.Client)
+	cl := meta.(*integrations.Client)
 	ctx := context.Background()
 
 	req := &manifold.APITokenRequest{
@@ -90,7 +91,7 @@ func resourceManifoldTokenCreate(d *schema.ResourceData, meta interface{}) error
 }
 
 func resourceManifoldTokenRead(d *schema.ResourceData, meta interface{}) error {
-	cl := meta.(*client.Client)
+	cl := meta.(*integrations.Client)
 	ctx := context.Background()
 
 	req := &manifold.TokensListOpts{
@@ -133,7 +134,7 @@ func resourceManifoldTokenUpdate(d *schema.ResourceData, meta interface{}) error
 }
 
 func resourceManifoldTokenDelete(d *schema.ResourceData, meta interface{}) error {
-	cl := meta.(*client.Client)
+	cl := meta.(*integrations.Client)
 	ctx := context.Background()
 
 	return cl.Tokens.Delete(ctx, d.Id())
@@ -154,5 +155,5 @@ func teamID(ctx context.Context, cl *manifold.Client, label string) (*manifold.I
 		}
 	}
 
-	return nil, client.ErrTeamNotFound
+	return nil, integrations.ErrTeamNotFound
 }

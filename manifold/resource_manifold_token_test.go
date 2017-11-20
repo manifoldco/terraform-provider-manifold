@@ -9,7 +9,7 @@ import (
 	"github.com/hashicorp/terraform/helper/schema"
 	"github.com/hashicorp/terraform/terraform"
 
-	"github.com/manifoldco/kubernetes-credentials/helpers/client"
+	"github.com/manifoldco/go-manifold/integrations"
 )
 
 func TestManifoldResource_APIToken(t *testing.T) {
@@ -38,7 +38,7 @@ resource "manifold_api_token" "test_token" {
 }
 
 func testAPITokenDestroy(s *terraform.State) error {
-	cl := testProviders["manifold"].(*schema.Provider).Meta().(*client.Client)
+	cl := testProviders["manifold"].(*schema.Provider).Meta().(*integrations.Client)
 
 	for _, rs := range s.RootModule().Resources {
 		if rs.Type != "manifold_api_token" {

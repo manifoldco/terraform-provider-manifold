@@ -5,8 +5,8 @@ import (
 
 	"github.com/hashicorp/terraform/helper/schema"
 
-	"github.com/manifoldco/kubernetes-credentials/helpers/client"
-	"github.com/manifoldco/kubernetes-credentials/primitives"
+	"github.com/manifoldco/go-manifold/integrations"
+	"github.com/manifoldco/go-manifold/integrations/primitives"
 )
 
 func dataSourceManifoldResource() *schema.Resource {
@@ -62,7 +62,7 @@ func dataSourceManifoldResource() *schema.Resource {
 }
 
 func dataSourceManifoldResourceRead(d *schema.ResourceData, meta interface{}) error {
-	cl := meta.(*client.Client)
+	cl := meta.(*integrations.Client)
 	ctx := context.Background()
 
 	projectLabel, _, err := getProjectInformation(cl, d.Get("project").(string), false)
@@ -70,9 +70,9 @@ func dataSourceManifoldResourceRead(d *schema.ResourceData, meta interface{}) er
 		return err
 	}
 
-	rs := &primitives.ResourceSpec{
+	rs := &primitives.Resource{
 		Name:        d.Get("resource").(string),
-		Credentials: credentialSpecsFromList(d.Get("credential").(*schema.Set).List()),
+		Credentials: credentialsFromList(d.Get("credential").(*schema.Set).List()),
 	}
 	resource, err := cl.GetResource(ctx, projectLabel, rs)
 	if err != nil {
@@ -84,7 +84,7 @@ func dataSourceManifoldResourceRead(d *schema.ResourceData, meta interface{}) er
 		return err
 	}
 
-	credMap, err := client.FlattenResourceCredentialValues(cv)
+	credMap, err := integrations.FlattenResourceCredentialValues(cv)
 	if err != nil {
 		return err
 	}
