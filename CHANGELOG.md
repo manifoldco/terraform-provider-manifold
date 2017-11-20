@@ -7,9 +7,15 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## Unreleased
 
+## [0.0.2] - 2017-11-20
+
 ### Added
 
 - Added a resource type which allows users to create API tokens.
+
+### Fixed
+
+- Fix a bug upstream in go-manifold where the UA format was malformed.
 
 ## [0.0.1] - 2017-10-30
 
