@@ -2,6 +2,7 @@ package manifold
 
 import (
 	"context"
+	"log"
 
 	"github.com/hashicorp/terraform/helper/schema"
 
@@ -87,6 +88,11 @@ func dataSourceManifoldResourceRead(d *schema.ResourceData, meta interface{}) er
 	credMap, err := integrations.FlattenResourceCredentialValues(cv)
 	if err != nil {
 		return err
+	}
+
+	// log out the credentials that we've loaded in case people want to debug
+	for k := range credMap {
+		log.Printf("Loaded credential '%s'", k)
 	}
 
 	d.SetId(resource.ID.String())
