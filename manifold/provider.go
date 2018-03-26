@@ -40,8 +40,9 @@ func Provider() terraform.ResourceProvider {
 		},
 
 		DataSourcesMap: map[string]*schema.Resource{
-			"manifold_resource": dataSourceManifoldResource(),
-			"manifold_project":  dataSourceManifoldProject(),
+			"manifold_resource":   dataSourceManifoldResource(),
+			"manifold_project":    dataSourceManifoldProject(),
+			"manifold_credential": dataSourceManifoldCredential(),
 		},
 
 		ConfigureFunc: providerConfigure,
