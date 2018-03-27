@@ -31,7 +31,7 @@ bootstrap: $(BOOTSTRAP)
 	gometalinter --install
 
 vendor: Gopkg.lock
-	dep ensure
+	dep ensure -v --vendor-only
 
 .PHONY: bootstrap $(BOOTSTRAP)
 
@@ -47,6 +47,8 @@ METALINT=gometalinter --tests --disable-all --vendor --deadline=5m -s data \
 
 $(LINTERS): vendor
 	$(METALINT) $@
+
+lint: $(LINTERS)
 
 .PHONY: $(LINTERS) test
 

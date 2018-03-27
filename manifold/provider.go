@@ -36,12 +36,14 @@ func Provider() terraform.ResourceProvider {
 		},
 
 		ResourcesMap: map[string]*schema.Resource{
-			"manifold_api_token": resourceManifoldToken(),
+			"manifold_api_token":  resourceManifoldToken(),
+			"manifold_credential": resourceManifoldCredential(),
 		},
 
 		DataSourcesMap: map[string]*schema.Resource{
-			"manifold_resource": dataSourceManifoldResource(),
-			"manifold_project":  dataSourceManifoldProject(),
+			"manifold_resource":   dataSourceManifoldResource(),
+			"manifold_project":    dataSourceManifoldProject(),
+			"manifold_credential": dataSourceManifoldCredential(),
 		},
 
 		ConfigureFunc: providerConfigure,
