@@ -56,12 +56,18 @@ func resourceManifoldResourceCredentialRead(d *schema.ResourceData, meta interfa
 		return err
 	}
 
+	var defValue string
+	def, ok := d.GetOkExists("default")
+	if ok {
+		defValue = def.(string)
+	}
+
 	rs := &primitives.Resource{
 		Name: d.Get("resource").(string),
 		Credentials: []*primitives.Credential{
 			{
 				Key:     d.Get("key").(string),
-				Default: d.Get("default").(string),
+				Default: defValue,
 			},
 		},
 	}
