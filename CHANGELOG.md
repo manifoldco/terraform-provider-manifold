@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## Unreleased
 
+## [0.0.3] - 2018-08-07
+
+- Add `manifold_credential` data source for fetching single credential value
+- Add `manifold_credential` resource for managing custom credential values
+- Update `go-manifold` version
+
 ## [0.0.2] - 2017-11-20
 
 ### Added
