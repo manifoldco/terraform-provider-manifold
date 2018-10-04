@@ -1,0 +1,50 @@
+module github.com/manifoldco/terraform-provider-manifold
+
+require (
+	github.com/agext/levenshtein v1.2.1
+	github.com/apparentlymart/go-cidr v0.0.0-20170616213631-2bd8b58cf427
+	github.com/apparentlymart/go-textseg v0.0.0-20170531203952-b836f5c4d331
+	github.com/armon/go-radix v0.0.0-20170727155443-1fca145dffbc
+	github.com/asaskevich/govalidator v0.0.0-20161001163130-7b3beb6df3c4
+	github.com/bgentry/go-netrc v0.0.0-20140422174119-9fd32a8b3d3d
+	github.com/bgentry/speakeasy v0.1.0
+	github.com/blang/semver v3.5.1+incompatible
+	github.com/davecgh/go-spew v1.1.0
+	github.com/dchest/blake2b v1.0.0
+	github.com/go-ini/ini v1.32.0
+	github.com/go-openapi/errors v0.0.0-20170426151106-03cfca65330d
+	github.com/go-openapi/runtime v0.0.0-20171117174610-4ab0c2c86df5
+	github.com/go-openapi/strfmt v0.0.0-20170822153411-610b6cacdcde
+	github.com/go-openapi/swag v0.0.0-20171111214437-cf0bdb963811
+	github.com/hashicorp/errwrap v0.0.0-20141028054710-7554cd9344ce
+	github.com/hashicorp/go-cleanhttp v0.0.0-20170211013415-3573b8b52aa7
+	github.com/hashicorp/go-getter v0.0.0-20171007181130-2f449c791e6a
+	github.com/hashicorp/go-hclog v0.0.0-20171005151751-ca137eb4b438
+	github.com/hashicorp/go-multierror v0.0.0-20170622060955-83588e72410a
+	github.com/hashicorp/go-plugin v0.0.0-20171029214425-e2fbc6864d18
+	github.com/hashicorp/go-uuid v0.0.0-20160717022140-64130c7a86d7
+	github.com/hashicorp/go-version v0.0.0-20170914154128-fc61389e27c7
+	github.com/hashicorp/hcl v0.0.0-20171017181929-23c074d0eceb
+	github.com/hashicorp/hcl2 v0.0.0-20171003232734-44bad6dbf549
+	github.com/hashicorp/hil v0.0.0-20170627220502-fa9f258a9250
+	github.com/hashicorp/logutils v0.0.0-20150609070431-0dc08b1671f3
+	github.com/hashicorp/yamux v0.0.0-20171005170212-f5742cb6b856
+	github.com/jmespath/go-jmespath v0.0.0-20160202185014-0b12d6b521d8
+	github.com/mailru/easyjson v0.0.0-20171120080333-32fa128f234d
+	github.com/manifoldco/go-base32 v1.0.0
+	github.com/manifoldco/go-base64 v1.0.0
+	github.com/manifoldco/go-manifold v0.9.2
+	github.com/mattn/go-isatty v0.0.3
+	github.com/mitchellh/cli v0.0.0-20170908181043-65fcae5817c8
+	github.com/mitchellh/copystructure v0.0.0-20170525013902-d23ffcb85de3
+	github.com/mitchellh/go-homedir v0.0.0-20161203194507-b8bc1bf76747
+	github.com/mitchellh/go-testing-interface v0.0.0-20171004221916-a61a99592b77
+	github.com/mitchellh/go-wordwrap v0.0.0-20150314170334-ad45545899c7
+	github.com/mitchellh/hashstructure v0.0.0-20170609045927-2bca23e0e452
+	github.com/mitchellh/mapstructure v0.0.0-20171017171808-06020f85339e
+	github.com/mitchellh/reflectwalk v0.0.0-20170726202117-63d60e9d0dbc
+	github.com/posener/complete v0.0.0-20171104095702-dc2bc5a81acc
+	github.com/satori/go.uuid v1.1.0
+	github.com/ulikunitz/xz v0.5.4
+	github.com/zclconf/go-cty v0.0.0-20171013215809-8bf222d6d03b
+)
