@@ -12,7 +12,7 @@ LINTERS=\
     ineffassign \
     deadcode
 
-ci: $(LINTERS) test
+ci: $(LINTERS) cover
 
 .PHONY: ci
 
@@ -41,6 +41,19 @@ vendor: Gopkg.lock
 
 test: vendor
 	@CGO_ENABLED=0 go test -v ./...
+
+COVER_TEST_PKGS:=$(shell find . -type f -name '*_test.go' | grep -v vendor | grep -v generated | rev | cut -d "/" -f 2- | rev | sort -u)
+$(COVER_TEST_PKGS:=-cover): %-cover: all-cover.txt
+	@CGO_ENABLED=0 go test -coverprofile=$@.out -covermode=atomic ./$*
+	@if [ -f $@.out ]; then \
+	    grep -v "mode: atomic" < $@.out >> all-cover.txt; \
+	    rm $@.out; \
+	fi
+
+all-cover.txt:
+	echo "mode: atomic" > all-cover.txt
+
+cover: vendor all-cover.txt $(COVER_TEST_PKGS:=-cover)
 
 METALINT=gometalinter --tests --disable-all --vendor --deadline=5m -s data \
      ./... --enable

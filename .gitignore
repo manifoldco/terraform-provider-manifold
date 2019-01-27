@@ -6,3 +6,6 @@ bin/
 # Terraform rules, we sometimes do things in this repo to test
 terraform.tfstate*
 .terraform
+
+# coverage report
+all-cover.txt
