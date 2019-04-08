@@ -6,7 +6,7 @@ PROMULGATE_VERSION=0.0.9
 LINTERS=\
     gofmt \
     golint \
-    gosimple \
+    staticcheck \
     vet \
     misspell \
     ineffassign \
