@@ -86,8 +86,7 @@ func resourceManifoldTokenCreate(d *schema.ResourceData, meta interface{}) error
 	}
 
 	d.SetId(token.ID.String())
-	d.Set("token", *token.Body.Token)
-	return nil
+	return d.Set("token", *token.Body.Token)
 }
 
 func resourceManifoldTokenRead(d *schema.ResourceData, meta interface{}) error {

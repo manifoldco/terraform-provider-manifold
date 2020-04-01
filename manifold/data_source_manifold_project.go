@@ -92,7 +92,14 @@ func dataSourceManifoldProjectRead(d *schema.ResourceData, meta interface{}) err
 	}
 
 	d.SetId(projectID.String())
-	d.Set("project", *projectLabel)
-	d.Set("credentials", credMap)
+
+	if err = d.Set("project", *projectLabel); err != nil {
+		return err
+	}
+
+	if err = d.Set("credentials", credMap); err != nil {
+		return err
+	}
+
 	return nil
 }
