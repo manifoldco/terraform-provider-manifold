@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## Unreleased
 
+## [0.1.0] - 2020-04-01
+
+### Added
+
+- Support the terraform 0.12 API
+
 ## [0.0.3] - 2018-08-07
 
 - Add `manifold_credential` data source for fetching single credential value
