@@ -90,10 +90,19 @@ func dataSourceManifoldResourceRead(d *schema.ResourceData, meta interface{}) er
 	}
 
 	d.SetId(resource.ID.String())
-	d.Set("resource", resource.Body.Label)
-	d.Set("credentials", credMap)
+
+	if err = d.Set("resource", resource.Body.Label); err != nil {
+		return err
+	}
+
+	if err = d.Set("credentials", credMap); err != nil {
+		return err
+	}
+
 	if projectLabel != nil {
-		d.Set("project", *projectLabel)
+		if err = d.Set("project", *projectLabel); err != nil {
+			return err
+		}
 	}
 	return nil
 }

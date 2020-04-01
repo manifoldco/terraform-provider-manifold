@@ -88,10 +88,19 @@ func resourceManifoldResourceCredentialRead(d *schema.ResourceData, meta interfa
 	cred := credMap[d.Get("key").(string)]
 
 	d.SetId(resource.ID.String())
-	d.Set("resource", resource.Body.Label)
-	d.Set("value", cred)
+
+	if err = d.Set("resource", resource.Body.Label); err != nil {
+		return err
+	}
+
+	if err = d.Set("value", cred); err != nil {
+		return err
+	}
+
 	if projectLabel != nil {
-		d.Set("project", *projectLabel)
+		if err = d.Set("project", *projectLabel); err != nil {
+			return err
+		}
 	}
 	return nil
 }

@@ -3,54 +3,21 @@ PKG=github.com/manifoldco/terraform-provider-manifold
 GO_BUILD=CGO_ENABLED=0 go build -i --ldflags="-w -X $(PKG)/config.Version=$(VERSION)"
 PROMULGATE_VERSION=0.0.9
 
-LINTERS=\
-    gofmt \
-    golint \
-    gosimple \
-    vet \
-    misspell \
-    ineffassign \
-    deadcode
-
-ci: $(LINTERS) test
+ci: lint test
 
 .PHONY: ci
-
-#################################################
-# Bootstrapping for base golang package deps
-#################################################
-
-BOOTSTRAP=\
-    github.com/golang/dep/cmd/dep \
-    github.com/alecthomas/gometalinter \
-    github.com/jbowes/oag
-
-$(BOOTSTRAP):
-	go get -u $@
-bootstrap: $(BOOTSTRAP)
-	gometalinter --install
-
-vendor: Gopkg.lock
-	dep ensure -v --vendor-only
-
-.PHONY: bootstrap $(BOOTSTRAP)
 
 #################################################
 # Test and linting
 #################################################
 
-test: vendor
+test:
 	@CGO_ENABLED=0 go test -v ./...
 
-METALINT=gometalinter --tests --disable-all --vendor --deadline=5m -s data \
-     ./... --enable
+lint:
+	go run github.com/golangci/golangci-lint/cmd/golangci-lint run ./...
 
-$(LINTERS): vendor
-	$(METALINT) $@
-
-lint: $(LINTERS)
-
-.PHONY: $(LINTERS) test
+.PHONY: lint test
 
 #################################################
 # Building
